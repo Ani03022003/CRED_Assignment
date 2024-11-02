@@ -26,6 +26,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -33,6 +34,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
@@ -78,20 +80,24 @@ fun SlideView1(
 
     val context = LocalContext.current
 
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+
     ModalBottomSheet(
         onDismissRequest = onClose,
+        sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
         modifier = modifier
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().heightIn(max = 416.dp)
+            modifier = Modifier.fillMaxWidth().height(680.dp)
         ) {
             Text("Credit amount", modifier = Modifier.padding(horizontal = 16.dp))
             Text("₹${amount}", modifier = Modifier.padding(horizontal = 16.dp))
             Spacer(modifier = Modifier.padding(8.dp).fillMaxWidth())
             Column(
                 modifier = Modifier.fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
                     .background(MaterialTheme.colorScheme.primaryContainer)
                     .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
             ) {
@@ -151,7 +157,7 @@ fun SlideView1(
                 ) {
                     Text(text = "create your own plan")
                 }
-                Spacer(modifier = Modifier.padding(32.dp).fillMaxWidth())
+                Spacer(modifier = Modifier.padding(107.dp).fillMaxWidth())
                 Button(
                     onClick = { if(selectedItem.emi == "a") Toast.makeText(context, "Please select a plan or create a plan", Toast.LENGTH_SHORT).show()
                               else onOpen(selectedItem) },

@@ -24,6 +24,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,13 +56,18 @@ fun SlideView2(
         BankData("PNB", "8974589334535", R.drawable.pnb)
     )
 
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+
     ModalBottomSheet(
         onDismissRequest = onClose,
+        sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
         modifier = modifier,
     ) {
         Column(
-            modifier = Modifier.height(316.dp)
+            modifier = Modifier.height(575.dp)
         ) {
             Row(
                 modifier = Modifier.padding(16.dp)
@@ -83,7 +89,6 @@ fun SlideView2(
                 modifier = Modifier.fillMaxWidth()
                     .background(MaterialTheme.colorScheme.primaryContainer)
                     .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                    .verticalScroll(rememberScrollState())
             ) {
                 Text(
                     text = "where should we send the money?",
@@ -136,7 +141,7 @@ fun SlideView2(
                 ) {
                     Text(text = "change account")
                 }
-                Spacer(modifier = Modifier.padding(32.dp))
+                Spacer(modifier = Modifier.padding(24.dp))
                 Button(
                     onClick = {},
                     shape = RectangleShape,
