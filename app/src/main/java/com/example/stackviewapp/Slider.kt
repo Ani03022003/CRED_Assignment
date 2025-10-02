@@ -25,6 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.math.*
 
 
@@ -59,6 +61,8 @@ fun CustomCircularProgressIndicator(
         mutableStateOf(initialValue)
     }
 
+    val scope = rememberCoroutineScope()
+
     Box(
         modifier = modifier
     ){
@@ -75,22 +79,26 @@ fun CustomCircularProgressIndicator(
                             dragStartedAngle = (dragStartedAngle + 180f).mod(360f)
                         },
                         onDrag = { change, _ ->
-                            var touchAngle = -atan2(
-                                x = circleCenter.y - change.position.y,
-                                y = circleCenter.x - change.position.x
-                            ) * (180f / PI).toFloat()
-                            touchAngle = (touchAngle + 180f).mod(360f)
+                            scope.launch(Dispatchers.Default) {
+                                var touchAngle = -atan2(
+                                    x = circleCenter.y - change.position.y,
+                                    y = circleCenter.x - change.position.x
+                                ) * (180f / PI).toFloat()
+                                touchAngle = (touchAngle + 180f).mod(360f)
 
-                            val currentAngle = oldPositionValue*360f/(maxValue-minValue)
-                            changeAngle = touchAngle - currentAngle
+                                val currentAngle = oldPositionValue * 360f / (maxValue - minValue)
+                                changeAngle = touchAngle - currentAngle
 
-                            val lowerThreshold = currentAngle - (360f / (maxValue-minValue) * 5)
-                            val higherThreshold = currentAngle + (360f / (maxValue-minValue) * 5)
+                                val lowerThreshold =
+                                    currentAngle - (360f / (maxValue - minValue) * 5)
+                                val higherThreshold =
+                                    currentAngle + (360f / (maxValue - minValue) * 5)
 
-                            if(dragStartedAngle in lowerThreshold .. higherThreshold){
-                                positionValue = (oldPositionValue + (changeAngle/(360f/(maxValue-minValue))).roundToInt())
+                                if (dragStartedAngle in lowerThreshold..higherThreshold) {
+                                    positionValue =
+                                        (oldPositionValue + (changeAngle / (360f / (maxValue - minValue))).roundToInt())
+                                }
                             }
-
                         },
                         onDragEnd = {
                             oldPositionValue = positionValue
@@ -103,7 +111,6 @@ fun CustomCircularProgressIndicator(
             val height = size.height
             val circleThickness = width / 25f
             circleCenter = Offset(x = width/2f, y = height/2f)
-
 
             drawCircle(
                 brush = Brush.radialGradient(

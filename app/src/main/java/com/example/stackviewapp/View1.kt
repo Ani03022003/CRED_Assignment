@@ -19,6 +19,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.AppTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainView(
@@ -35,6 +38,7 @@ fun MainView(
     onButtonClicked1 : (Int) -> Unit
 ){
     var amount = 0
+    val scope = rememberCoroutineScope()
 
     Column (
         modifier = modifier.background(MaterialTheme.colorScheme.primary)
@@ -99,7 +103,7 @@ fun MainView(
                     secondaryColor = Color.Gray,
                     circleRadius = 230f,
                     onPositionChange = { value ->
-                        amount = value
+                            amount = value
                     }
                 )
                 Button(
