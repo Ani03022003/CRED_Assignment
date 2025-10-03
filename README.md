@@ -15,7 +15,7 @@ This is an Android application built as part of a coding assignment. The project
 
 ## 🎥 Demo Video
 You can watch the demo of the application here:  
-[![Watch the video](https://drive.google.com/file/d/12QNP1x8eAZ748Dc71kjES38Ie2IUHi_s/view?usp=sharing)
+[![Watch the video](https://drive.google.com/file/d/12QNP1x8eAZ748Dc71kjES38Ie2IUHi_s/view?usp=sharing)]
 
 
 ## 🛠️ Tech Stack
