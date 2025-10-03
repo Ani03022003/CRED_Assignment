@@ -8,7 +8,7 @@ This is an Android application built as part of a coding assignment. The project
 - Supports light & dark themes
 
 ## 📸 Screenshots
-| Home Screen | Details Screen |
+| Home Screen | Details Screen1 | Deatils Screen2 |
 |-------------|----------------|
 | ![Home](screenshots/home.png) | ![StackView1](screenshots/details1.png) | ![StackView2](screenshots/details2.png)
 
